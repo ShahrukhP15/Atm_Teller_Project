@@ -4,7 +4,7 @@
 
 ## *An app to keep track of bank account transaction*
 
-A *bulleted* list:
+
 - The application can add or deposit money in cents
 - Anyone with a bank account who needs to keep track of their account can use it.
 - This project is of interest for me because in my country people use mostly cash and thus they lose track of their 
