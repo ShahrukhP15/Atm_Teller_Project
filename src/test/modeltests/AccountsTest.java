@@ -87,7 +87,7 @@ class AccountsTest {
     }
 
     @Test
-    public void testgetBalance() {
+    public void testGetBalance() {
         //testAccount.checkBalance(INITIAL_BALANCE);
         assertEquals(INITIAL_BALANCE, testAccount.getBalance());
         testAccount.deposit(100);
