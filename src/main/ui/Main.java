@@ -20,7 +20,7 @@ public class Main {
         String username = sc.next();
         System.out.println("Enter password:");
         int password = sc.nextInt();
-        
+
         checkCredentials(accounts,username,password,sc);
         Dashboard.runProgram(accounts, myAccount, sc);
     }
