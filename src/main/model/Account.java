@@ -1,26 +1,38 @@
 package model;
 
+import exceptions.InsufficientBalanceException;
+import exceptions.InvalidAmountException;
+import org.json.JSONObject;
+import persistence.Writable;
+
 //Making an account to withdraw, deposit and check balance
-public class Account {
+public class Account  implements Writable {
 
     private int balance;
     private String username;
-    private int password;
+    private String password;
 
 
-
-    //REQUIRES: initialBalance >=0
-    //EFFECTS: constructs an account with given initial balance in cents
-    public Account(int initialBalance) {
-        this.balance = initialBalance;
+    //EFFECTS: creates an account with a string username and string password
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets the balance to given balance
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
 
-    //REQUIRES: amount > 0
     //MODIFIES: this
     //EFFECTS: adds amount cents to balance on account
-    public void deposit(int amount) {
+    public int deposit(int amount) throws InvalidAmountException {
+        if (amount < 0) {
+            throw new InvalidAmountException();
+        }
         balance = balance + amount;
+        return balance;
     }
 
     //MODIFIES: this
@@ -28,15 +40,15 @@ public class Account {
     //    //            - subtracts amount cents from balance
     //    //            - returns true
     //    //               otherwise, returns false
-    public boolean withdraw(int amount) {
-        if (balance >= amount) {
-            balance = balance - amount;
-            System.out.println("Successfully withdrawn");
-            return  true;
-        } else {
-            System.out.println("Insufficient Balance");
-            return false;
+    public int withdraw(int amount) throws InvalidAmountException, InsufficientBalanceException {
+        if (amount < 0) {
+            throw new InvalidAmountException();
         }
+        if (amount > balance) {
+            throw new InsufficientBalanceException();
+        }
+        balance = balance - amount;
+        return balance;
     }
 
     //EFFECTS: returns the current balance in cents;
@@ -44,11 +56,6 @@ public class Account {
         return balance;
     }
 
-    //MODIFIES: this
-    //EFFECTS: sets username to given username
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
 
     // EFFECTS: returns the current username
@@ -56,14 +63,20 @@ public class Account {
         return username;
     }
 
-    //EFFECTS: sets password to given password
-    public void setPassword(int password) {
-        this.password = password;
-    }
 
 
     //EFFECTS: returns the current password
-    public int getPassword() {
+    public String getPassword() {
         return password;
+    }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("username", username);
+        json.put("password", password);
+        json.put("balance", balance);
+        return json;
     }
 }

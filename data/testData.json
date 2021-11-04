@@ -1,0 +1,12 @@
+{"accounts": [
+  {
+    "password": "123",
+    "balance": 100,
+    "username": "abc"
+  },
+  {
+    "password": "321",
+    "balance": 200,
+    "username": "lol"
+  }
+]}

@@ -28,35 +28,16 @@ able to keep track of how much that have included.
 Also, it can be used by common users to add money to their own accounts and, they can keep track of how much money they 
 are adding to their account. 
 
-- As a user I want to be able to take money out of my account.
+- As a user, I want to be able to save the username and respective password for a account for security purpose and to access that account later.
 
-As a user I definitely want to allow people to  withdraw or takeout money from their account. And also I need to keep 
-track of how much money they have withdrawn to provide them with that amount. If someone has sufficient balance, I need 
-allow them to withdraw their required money, so they can use it. If I don't allow people to withdraw money I might get 
-into trouble. However, I also need to check if someone has enough balance to withdraw the amount they are trying to 
-withdraw, otherwise they might withdraw more than allowed and get me into trouble.
+- As a user I want to be able to save the total balance in my account.
 
-So, i included a **withdraw** method in class **Account** which will deduct money in cents if sufficient balance is 
-present or present an error when sufficient money is not present. 
+- As a user, I want to be able to deposit and withdraw money from my account and save the amount after depositing or withdrawing money.
 
-Also, people can use it to keep track of how much money they have withdrawn and if they have gone over their balance.
+- As a user, I want to be able to load a specific account based on the username and password that I have saved.
 
-- As a user, I want to be able to see the balance.
+- As a user, I want to load the amount in my account.
 
-I want to see obviously how much money someone has in their bank account to have an idea of the amount. Depending on how
-more money one keeps in the account I might provide them more facilities. Also, I need to be able to see their balance 
-to see if they have enough balance.
+- As a user, I want to load the amount that is in my account after I had made a deposit to the account or I have withdrawn from an account.
 
-For this, I included a process in my *main* class to call the getter to get me my balance and print the balance for me to 
-see.
-
-- As a user, I want to provide a unique username and password for safety and also to distinguish users. If I don't 
-include a username people might not be able to access their account and also I might not be able to keep track of their
-accounts. 
-
-For common users it's also a process to ensure safety as they have a secret and unique username and password.
-
-So, I included the **setUsername** and **setPassword** method in **Account** class to include these features in an 
-account.
-
-
+- 

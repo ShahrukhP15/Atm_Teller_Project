@@ -1,110 +1,117 @@
 package modeltests;
 
+import exceptions.InsufficientBalanceException;
+import exceptions.InvalidAmountException;
 import model.Account;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 // Unit tests for Account class
 class AccountsTest {
-    public static int INITIAL_BALANCE = 1000;
-
-    Account testAccount;
+    private Account account;
 
     @BeforeEach
     public void runBefore() {
-        testAccount = new Account(INITIAL_BALANCE);
+        account = new Account("abc", "123");
     }
 
     @Test
-    public void testConstructor() {
-        assertEquals(INITIAL_BALANCE, testAccount.getBalance());
+    public void getterTest() {
+        assertEquals(account.getUsername(), "abc");
+        assertEquals(account.getPassword(), "123");
+        assertEquals(account.getBalance(), 0);
+        account.setBalance(100);
+        assertEquals(account.getBalance(), 100);
+
     }
 
     @Test
-    public void testDepositOnce() {
-        int depositedAmount = 500;
-        testAccount.deposit(depositedAmount);
-        assertEquals(INITIAL_BALANCE + depositedAmount, testAccount.getBalance());
+    public void depositLegal() {
+        try {
+            account.deposit(120);
+        } catch (InvalidAmountException e) {
+            fail();
+        }
+        assertEquals(account.getBalance(), 120);
     }
 
     @Test
-    public void testDepositManyTimes() {
-        int depositedAmount = 500;
-        testAccount.deposit(depositedAmount);
-        assertEquals(INITIAL_BALANCE + depositedAmount, testAccount.getBalance());
-        testAccount.deposit(depositedAmount);
-        assertEquals(INITIAL_BALANCE + depositedAmount + depositedAmount, testAccount.getBalance());
+    public void depositNegative() {
+        try {
+            account.deposit(-120);
+            fail();
+        } catch (InvalidAmountException e) {
+            // expected
+        }
+        assertEquals(account.getBalance(), 0);
     }
 
     @Test
-    public void testUnsuccessfulWithdraw() {
-        int temp = 1500;
-        assertFalse(testAccount.withdraw(temp));
+    public void withdrawLessThanFullAmount(){
+        account.setBalance(100);
+        try {
+            account.withdraw(99);
+        } catch (InvalidAmountException e) {
+            fail();
+        } catch (InsufficientBalanceException e) {
+            fail();
+        }
+        assertEquals(account.getBalance(),1);
     }
 
     @Test
-    public void testSuccessfulWithdrawOnce() {
-        int temp = 500;
-        testAccount.withdraw(temp);
-        assertEquals(INITIAL_BALANCE - temp, testAccount.getBalance());
+    public void withdrawFullAmount(){
+        account.setBalance(100);
+        try {
+            account.withdraw(100);
+        } catch (InvalidAmountException e) {
+            fail();
+        } catch (InsufficientBalanceException e) {
+            fail();
+        }
+        assertEquals(account.getBalance(),0);
+    }
+    @Test
+    public void withdrawMoreThanFullAmount(){
+        account.setBalance(100);
+        try {
+            account.withdraw(101);
+            fail();
+        } catch (InvalidAmountException e) {
+            fail();
+        } catch (InsufficientBalanceException e) {
+            //expected
+        }
+        assertEquals(account.getBalance(),100);
+    }
+    @Test
+    public void withdrawNegativeAmount(){
+        account.setBalance(100);
+        try {
+            account.withdraw(-1);
+            fail();
+        } catch (InvalidAmountException e) {
+            // expected
+        } catch (InsufficientBalanceException e) {
+            fail();
+        }
+        assertEquals(account.getBalance(),100);
+    }
+    @Test
+    public void withdrawZero(){
+        account.setBalance(100);
+        try {
+            account.withdraw(0);
+        } catch (InvalidAmountException e) {
+            fail();
+        } catch (InsufficientBalanceException e) {
+            fail();
+        }
+        assertEquals(account.getBalance(),100);
     }
 
-    @Test
-    public void testSuccessfulWithdrawFullBalance() {
-        testAccount.withdraw(INITIAL_BALANCE);
-        assertEquals(0, testAccount.getBalance());
-    }
-
-    @Test
-    public void testSuccessfulWithdrawManyTimes() {
-        int temp = 300;
-        testAccount.withdraw(temp);
-        assertEquals(INITIAL_BALANCE - temp, testAccount.getBalance());
-        testAccount.withdraw(temp);
-        assertEquals(INITIAL_BALANCE - temp - temp, testAccount.getBalance());
-        testAccount.withdraw(temp);
-        assertEquals(INITIAL_BALANCE - (temp * 3) , testAccount.getBalance());
-    }
-
-    @Test
-    public void testSuccessfulWithdrawManyTimesFullAmount() {
-        int temp = 500;
-        testAccount.withdraw(temp);
-        assertEquals(INITIAL_BALANCE - temp, testAccount.getBalance());
-        testAccount.withdraw(temp);
-        assertEquals(INITIAL_BALANCE - temp - temp, testAccount.getBalance());
-    }
-
-    @Test
-    public void testSuccessfulWithdrawOnceThenFail() {
-        int temp = 600;
-        testAccount.withdraw(temp);
-        assertEquals(INITIAL_BALANCE - temp, testAccount.getBalance());
-        testAccount.withdraw(temp);
-        assertFalse(testAccount.withdraw(temp));
-    }
-
-    @Test
-    public void testGetBalance() {
-        //testAccount.checkBalance(INITIAL_BALANCE);
-        assertEquals(INITIAL_BALANCE, testAccount.getBalance());
-        testAccount.deposit(100);
-        assertEquals(INITIAL_BALANCE + 100, testAccount.getBalance());
-    }
-
-    @Test
-    public void testSetUserName() {
-        String name= "xyz";
-        testAccount.setUsername(name);
-        assertEquals(name,testAccount.getUsername());
-    }
-
-    @Test
-    public void testSetPassword() {
-        int temp = 122334;
-        testAccount.setPassword(temp);
-        assertEquals(temp, testAccount.getPassword());
-    }
 }
+
