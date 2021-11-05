@@ -70,56 +70,71 @@ public class Dashboard {
 
     // MODIFIES: this
     // EFFECTS: prints menu options and info depending on input str
-    @SuppressWarnings("checkstyle:MethodLength")
     private void mainMenuInput(Account account) {
-        boolean loggedIn = true;
-        String s1 = "";
-        String s2 = "Invalid error";
-        while (loggedIn) {
+        boolean isLoggedIn = true;
+        while (isLoggedIn) {
             String str = getUserInputString();
-            if (str.length() > 0) {
-                Scanner inputP = new Scanner(System.in);
-                int amount;
-                switch (str) {
-                    case "1":
-                        s1 = "Enter Amount you want to withdraw";
-                        amount = takeIntegerInput(0,inputP,s1,s2);
-                        withdraw(account,amount);
-                        break;
-                    case "2":
-                        s1 = "Enter Amount you want to deposit";
-                        amount = takeIntegerInput(0,inputP,s1,s2);
-                        deposit(account,amount);
-                        break;
-                    case "3":
-                        System.out.println("Your current balance is " + account.getBalance());
-                        break;
-                    case "5":
-                        runProgram = false;
-                        loggedIn = false;
-                        System.out.println("Quitting");
-                        saveAccountsData();
-                        inputP.close();
-                        break;
-                    case "4":
-                        System.out.println("Logged out!");
-                        loggedIn = false;
-                        break;
-                    default:
-                        System.out.println("Enter a valid command!");
-                        printInstructions();
-                        break;
-                }
-                printInstructions();
+           // Scanner inputP = new Scanner(System.in);
+            switch (str) {
+                case "1":
+                    case1(account);
+                    break;
+                case "2":
+                    case2(account);
+                    break;
+                case "3":
+                    System.out.println("Your current balance is " + account.getBalance());
+                    break;
+                default:
+                    isLoggedIn = furtherCases(str);
+                    break;
             }
+            printInstructions();
         }
-
     }
+
+    public boolean furtherCases(String str) {
+
+        boolean loggedCondition = true;
+        switch (str) {
+            case "4":
+                System.out.println("Logged out!");
+                loggedCondition = false;
+                break;
+            case "5":
+                loggedCondition = false;
+                quit();
+                break;
+        }
+        return loggedCondition;
+    }
+
+    public void case1(Account account) {
+        int amount;
+        System.out.println("Enter Amount you want to withdraw");
+        amount = takeIntegerInput(0);
+        doWithdraw(account,amount);
+    }
+
+    public void case2(Account account) {
+        int amount;
+        System.out.println("Enter Amount you want to deposit");
+        amount = takeIntegerInput(0);
+        doDeposit(account,amount);
+    }
+
+    public void quit() {
+        runProgram = false;
+        System.out.println("Quitting");
+        saveAccountsData();
+        input.close();
+    }
+
 
 
     // MODIFIES: this
     // EFFECTS: conducts a deposit transaction
-    private void deposit(Account account, int amount) {
+    private void doDeposit(Account account, int amount) {
         try {
             account.deposit(amount);
             System.out.println("Successfully deposited " + amount);
@@ -130,7 +145,7 @@ public class Dashboard {
 
     // MODIFIES: this
     // EFFECTS: conducts a withdraw transaction
-    private void withdraw(Account account, int amount) {
+    private void doWithdraw(Account account, int amount) {
         try {
             account.withdraw(amount);
             System.out.println("Successfully withdrew " + amount);
@@ -153,17 +168,15 @@ public class Dashboard {
 
     // MODIFIES: amount
     // EFFECTS: Takes integer input from user.
-    private int takeIntegerInput(int amount, Scanner inputP, String s, String s2) {
+    private int takeIntegerInput(int amount) {
         boolean isInt;
         do {
-            System.out.println(s);
-            if (inputP.hasNextInt()) {
-                amount = inputP.nextInt();
+            if (input.hasNextInt()) {
+                amount = input.nextInt();
                 isInt = true;
             } else {
-                System.out.println(s2);
                 isInt = false;
-                inputP.next();
+                input.next();
             }
         } while (!isInt);
         return amount;
