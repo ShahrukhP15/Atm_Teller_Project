@@ -77,10 +77,10 @@ public class Dashboard {
            // Scanner inputP = new Scanner(System.in);
             switch (str) {
                 case "1":
-                    case1(account);
+                    withdrawal(account);
                     break;
                 case "2":
-                    case2(account);
+                    deposit(account);
                     break;
                 case "3":
                     System.out.println("Your current balance is " + account.getBalance());
@@ -94,7 +94,6 @@ public class Dashboard {
     }
 
     public boolean furtherCases(String str) {
-
         boolean loggedCondition = true;
         switch (str) {
             case "4":
@@ -109,14 +108,14 @@ public class Dashboard {
         return loggedCondition;
     }
 
-    public void case1(Account account) {
+    public void withdrawal(Account account) {
         int amount;
         System.out.println("Enter Amount you want to withdraw");
         amount = takeIntegerInput(0);
         doWithdraw(account,amount);
     }
 
-    public void case2(Account account) {
+    public void deposit(Account account) {
         int amount;
         System.out.println("Enter Amount you want to deposit");
         amount = takeIntegerInput(0);

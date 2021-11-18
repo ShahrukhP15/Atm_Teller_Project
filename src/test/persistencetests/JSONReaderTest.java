@@ -45,7 +45,6 @@ public class JSONReaderTest extends JSONTest{
             checkAccount("abc","123",100,accounts.get(0));
             checkAccount("srk","321",200,accounts.get(1));
 
-
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
