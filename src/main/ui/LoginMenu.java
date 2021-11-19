@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.NotFoundException;
 import model.Account;
 import model.AllAccounts;
 
@@ -7,79 +8,99 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
-public class LoginMenu extends JFrame implements ActionListener {
+public class LoginMenu extends Menu implements ActionListener {
     private AllAccounts accounts;
-    private Account account;
     private JButton submitButton;
     private JButton signUpButton;
-    private JLabel usernameLabel = new JLabel("Username");
-    private JLabel passwordLabel = new JLabel("Password");
-    private JTextField usernameField;
+    private JLabel userNameLabel;
+    private JLabel passwordLabel;
+    private JTextField userNameField;
     private JTextField passwordField;
+    private JButton loadDataButton;
 
-    public LoginMenu(Account account, AllAccounts accounts) {
-        this.setSize(600, 600);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(true);
-        this.setLayout(null);
-        this.setResizable(false);
-        this.setTitle("ATM Interface");
-        this.account = account;
+
+    LoginMenu(AllAccounts accounts) {
+        super();
         this.accounts = accounts;
-        this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(new Color(205, 236, 245));
-
-        addLabels();
-        addSubmitButton();
-        addSignUpButton();
+        initializeLabels();
     }
 
-    private void addLabels() {
-        usernameLabel.setBounds(80, 70, 200,40);
-        usernameLabel.setFont(new Font("Username", Font.BOLD, 20));
-        this.add(usernameLabel);
-
-        usernameField = new JTextField(30);
-        usernameField.setBounds(200,70,250,40);
-        usernameField.setText("Username");
-        this.add(usernameField);
-
-
-        passwordLabel.setBounds(80, 120, 200,40);
-        passwordLabel.setFont(new Font("Password", Font.BOLD, 20));
-        this.add(passwordLabel);
-
-
-        passwordField = new JTextField(30);
-        passwordField.setBounds(200,120,250,40);
-        passwordField.setText("Password");
-        this.add(passwordField);
-
-    }
-
-    private void addSubmitButton() {
-        submitButton = new JButton("Submit");
-        submitButton.setBounds(210,180, 200,50);
-        submitButton.setFocusable(false);
-        submitButton.addActionListener(this);
-        submitButton.setBackground(Color.lightGray);
-        submitButton.setFont(new Font("Submit", Font.BOLD,20));
-        this.add(submitButton);
-    }
-
-    private void addSignUpButton() {
-        signUpButton = new JButton("Sign Up");
-        signUpButton.setBounds(150,300, 300,100);
-        signUpButton.setFocusable(false);
-        signUpButton.addActionListener(this);
-        signUpButton.setBackground(Color.CYAN);
-        signUpButton.setFont(new Font(Font.DIALOG, Font.BOLD,20));
-        this.add(signUpButton);
+    private void initializeLabels() {
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == loadDataButton) {
+            loadData();
+        }
+        if (e.getSource() == submitButton) {
+            String username = userNameField.getText();
+            String password = passwordField.getText();
+            try {
+                Account account = accounts.lookupAccount(username,password);
+                new MainMenu(account,accounts);
+                dispose();
+            } catch (NotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "Account not found.");
+            }
+        }
+        if (e.getSource() == signUpButton) {
+            new CreateAccountMenu(accounts);
+            dispose();
+        }
     }
+
+    @Override
+    protected void initializeButtonsAndLabels() {
+        submitButton = new JButton("Login");
+        submitButton.setBounds(240, 280, 100, 50);
+        submitButton.setFocusable(false);
+        submitButton.addActionListener(this);
+        this.add(submitButton);
+        signUpButton = new JButton("Create Account");
+        signUpButton.setBounds(190, 400, 200, 50);
+        signUpButton.setFocusable(false);
+        signUpButton.addActionListener(this);
+        this.add(signUpButton);
+
+        loadDataButton = new JButton("Load");
+        loadDataButton.addActionListener(this);
+        loadDataButton.setBounds(480, 0, 100, 50);
+        loadDataButton.setFocusable(false);
+        this.add(loadDataButton);
+
+        userNameLabel = new JLabel("Username");
+        userNameLabel.setBounds(30, 40, 100, 25);
+        userNameLabel.setFont(new Font(userNameLabel.getFont().getName(), Font.BOLD, 20));
+        this.add(userNameLabel);
+
+        passwordLabel = new JLabel("Password");
+        passwordLabel.setBounds(30, 80, 100, 25);
+        passwordLabel.setFont(new Font(userNameLabel.getFont().getName(), Font.BOLD, 20));
+        this.add(passwordLabel);
+
+        userNameField = new JTextField(20);
+        userNameField.setBounds(170, 40, 150, 30);
+        passwordField = new JTextField(20);
+        passwordField.setBounds(170, 80, 150, 30);
+        this.add(userNameField);
+        this.add(passwordField);
+        this.revalidate();
+        this.repaint();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: load weeks' data from file in weeks.
+    private void loadData() {
+        try {
+            accounts = DashboardGUI.JSON_READER.read();
+            new SummaryTable(accounts);
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + DashboardGUI.JSON_STORE);
+        }
+    }
+
+
 }

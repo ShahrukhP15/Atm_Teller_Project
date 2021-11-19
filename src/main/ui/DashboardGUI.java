@@ -16,7 +16,8 @@ public class DashboardGUI {
     // EFFECTS: Constructs new Dashboard with a MainMenuFrame and initialize weeks.
     public DashboardGUI() {
         accounts = new AllAccounts();
-        new MainMenu(accounts);
+        //new MainMenu(accounts);
+        new LoginMenu(accounts);
     }
 
 }
