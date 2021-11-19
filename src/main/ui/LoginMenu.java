@@ -54,22 +54,7 @@ public class LoginMenu extends Menu implements ActionListener {
 
     @Override
     protected void initializeButtonsAndLabels() {
-        submitButton = new JButton("Login");
-        submitButton.setBounds(240, 280, 100, 50);
-        submitButton.setFocusable(false);
-        submitButton.addActionListener(this);
-        this.add(submitButton);
-        signUpButton = new JButton("Create Account");
-        signUpButton.setBounds(190, 400, 200, 50);
-        signUpButton.setFocusable(false);
-        signUpButton.addActionListener(this);
-        this.add(signUpButton);
-
-        loadDataButton = new JButton("Load");
-        loadDataButton.addActionListener(this);
-        loadDataButton.setBounds(480, 0, 100, 50);
-        loadDataButton.setFocusable(false);
-        this.add(loadDataButton);
+        addButtons();
 
         userNameLabel = new JLabel("Username");
         userNameLabel.setBounds(30, 40, 100, 25);
@@ -89,6 +74,25 @@ public class LoginMenu extends Menu implements ActionListener {
         this.add(passwordField);
         this.revalidate();
         this.repaint();
+    }
+
+    private void addButtons() {
+        submitButton = new JButton("Login");
+        submitButton.setBounds(240, 280, 100, 50);
+        submitButton.setFocusable(false);
+        submitButton.addActionListener(this);
+        this.add(submitButton);
+        signUpButton = new JButton("Create Account");
+        signUpButton.setBounds(190, 400, 200, 50);
+        signUpButton.setFocusable(false);
+        signUpButton.addActionListener(this);
+        this.add(signUpButton);
+
+        loadDataButton = new JButton("Load");
+        loadDataButton.addActionListener(this);
+        loadDataButton.setBounds(480, 0, 100, 50);
+        loadDataButton.setFocusable(false);
+        this.add(loadDataButton);
     }
 
     // MODIFIES: this
