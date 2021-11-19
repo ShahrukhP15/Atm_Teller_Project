@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 // A Dashboard for user to interact and give inputs
-
 public class Dashboard {
     private boolean runProgram = true;
     private Scanner input;
@@ -93,6 +92,8 @@ public class Dashboard {
         }
     }
 
+
+    //EFFECTS: the further options in the menu
     public boolean furtherCases(String str) {
         boolean loggedCondition = true;
         switch (str) {
@@ -108,6 +109,8 @@ public class Dashboard {
         return loggedCondition;
     }
 
+
+    //EFFECTS: takes an amount and withdraws that amount of money from the account
     public void withdrawal(Account account) {
         int amount;
         System.out.println("Enter Amount you want to withdraw");
@@ -115,6 +118,7 @@ public class Dashboard {
         doWithdraw(account,amount);
     }
 
+    //EFFECTS: takes an amount and deposits that amount of money in the account
     public void deposit(Account account) {
         int amount;
         System.out.println("Enter Amount you want to deposit");
@@ -122,6 +126,7 @@ public class Dashboard {
         doDeposit(account,amount);
     }
 
+    //EFFECTS: exits the function
     public void quit() {
         runProgram = false;
         System.out.println("Quitting");

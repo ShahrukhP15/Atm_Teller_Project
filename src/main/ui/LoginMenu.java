@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+// Represent a LoginMenu in the GUI
 public class LoginMenu extends Menu implements ActionListener {
     private AllAccounts accounts;
     private JButton submitButton;
@@ -21,15 +22,13 @@ public class LoginMenu extends Menu implements ActionListener {
     private JButton loadDataButton;
 
 
-    LoginMenu(AllAccounts accounts) {
+    // EFFECTS: Constructs a LoginMenu and initialize accounts
+    public LoginMenu(AllAccounts accounts) {
         super();
         this.accounts = accounts;
-        initializeLabels();
     }
 
-    private void initializeLabels() {
-    }
-
+    // EFFECTS: Assigns actions to all the buttons in current frame.
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loadDataButton) {
@@ -52,10 +51,17 @@ public class LoginMenu extends Menu implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize all the buttons and labels in current frame
     @Override
     protected void initializeButtonsAndLabels() {
         addButtons();
+        initializeLabels();
+    }
 
+    // MODIFIES: this
+    // EFFECTS: initialize all the labels and text fields in current frame
+    private void initializeLabels() {
         userNameLabel = new JLabel("Username");
         userNameLabel.setBounds(30, 40, 100, 25);
         userNameLabel.setFont(new Font(userNameLabel.getFont().getName(), Font.BOLD, 20));
@@ -67,21 +73,24 @@ public class LoginMenu extends Menu implements ActionListener {
         this.add(passwordLabel);
 
         userNameField = new JTextField(20);
-        userNameField.setBounds(170, 40, 150, 30);
+        userNameField.setBounds(170, 40, 180, 30);
         passwordField = new JTextField(20);
-        passwordField.setBounds(170, 80, 150, 30);
+        passwordField.setBounds(170, 80, 180, 30);
         this.add(userNameField);
         this.add(passwordField);
         this.revalidate();
         this.repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds all the buttons in current frame
     private void addButtons() {
         submitButton = new JButton("Login");
         submitButton.setBounds(240, 280, 100, 50);
         submitButton.setFocusable(false);
         submitButton.addActionListener(this);
         this.add(submitButton);
+
         signUpButton = new JButton("Create Account");
         signUpButton.setBounds(190, 400, 200, 50);
         signUpButton.setFocusable(false);
@@ -100,7 +109,7 @@ public class LoginMenu extends Menu implements ActionListener {
     private void loadData() {
         try {
             accounts = DashboardGUI.JSON_READER.read();
-            new SummaryTable(accounts);
+            new AccountsTable(accounts);
         } catch (IOException e) {
             System.out.println("Unable to write to file: " + DashboardGUI.JSON_STORE);
         }

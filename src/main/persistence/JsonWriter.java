@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 
-
+// Represents a writer that writes JSON representation of workroom to file
 public class JsonWriter {
     private static final int TAB = 5;
     private PrintWriter writer;

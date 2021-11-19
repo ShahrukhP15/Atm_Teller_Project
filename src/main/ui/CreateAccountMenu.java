@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
+//Represents a menu to create new accounts
 public class CreateAccountMenu extends Menu implements ActionListener {
     private AllAccounts accounts;
     private JButton createAccountButton;
@@ -18,20 +19,43 @@ public class CreateAccountMenu extends Menu implements ActionListener {
     private JTextField passwordField;
     private JButton backButton;
 
+    // EFFECTS: Constructs a CreateAccountMenu and initialize accounts
     public CreateAccountMenu(AllAccounts accounts) {
         super();
         this.accounts = accounts;
     }
 
+    // EFFECTS: Assigns actions to all the buttons in current frame.
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == createAccountButton) {
+            String username = userNameField.getText();
+            String password = passwordField.getText();
+            accounts.addAccount(username, password);
+            saveAccountData();
+            JOptionPane.showMessageDialog(this, "Account successfully created.");
+            new LoginMenu(accounts);
+            dispose();
+        }
+        if (e.getSource() == backButton) {
+            new LoginMenu(accounts);
+            dispose();
+        }
+    }
+
+
+    // MODIFIES: this
+    // EFFECTS: initialize all the buttons and labels in current frame
     @Override
     protected void initializeButtonsAndLabels() {
         addLabels();
-        addCreateAccountButton();
-        addBackButton();
+        addButton();
         revalidate();
         repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize all the labels and text fields in current frame
     private void addLabels() {
         userNameLabel = new JLabel("Username");
         userNameLabel.setBounds(50, 70, 200, 40);
@@ -55,16 +79,16 @@ public class CreateAccountMenu extends Menu implements ActionListener {
 
     }
 
-    private void addCreateAccountButton() {
+    // MODIFIES: this
+    // EFFECTS: initialize all the buttons in current frame
+    private void addButton() {
         createAccountButton = new JButton("Create Account");
         createAccountButton.setBounds(220, 220, 200, 50);
         createAccountButton.setFocusable(false);
         createAccountButton.addActionListener(this);
         createAccountButton.setFont(new Font("Submit", Font.BOLD, 20));
         this.add(createAccountButton);
-    }
 
-    private void addBackButton() {
         backButton = new JButton("Back");
         backButton.setBounds(450, 400, 90, 50);
         backButton.setFocusable(false);
@@ -74,24 +98,7 @@ public class CreateAccountMenu extends Menu implements ActionListener {
     }
 
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == createAccountButton) {
-            String username = userNameField.getText();
-            String password = passwordField.getText();
-            accounts.addAccount(username, password);
-            saveAccountData();
-            JOptionPane.showMessageDialog(this, "Account successfully created.");
-            new LoginMenu(accounts);
-            dispose();
-        }
-        if (e.getSource() == backButton) {
-            new LoginMenu(accounts);
-            dispose();
-        }
-    }
-
-    // EFFECTS: Save the weeks' data to file.
+    // EFFECTS: Save the accounts' data to file.
     private void saveAccountData() {
         try {
             JsonWriter jsonWriter = DashboardGUI.JSON_WRITER;

@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 
-
+// Represents a reader that reads workroom from JSON data stored in file
 public class JsonReader {
     private String source;
 
@@ -53,8 +53,8 @@ public class JsonReader {
     }
 
 
-    // MODIFIES: week
-    // EFFECTS: add each Account read from JSON object to week
+    // MODIFIES: account
+    // EFFECTS: add each Account read from JSON object to account
     private void addAccount(AllAccounts accounts, JSONObject jsonObject) {
         Integer balance = jsonObject.getInt("balance");
         String password = jsonObject.getString("password");

@@ -9,28 +9,28 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Vector;
 
-// Represents a summary table for a given week
 
-public class SummaryTable extends JFrame {
+// Represents a table to show the accounts
+public class AccountsTable extends JFrame {
     private AllAccounts accounts;
     private DefaultTableModel model;
     private JTable table;
     private JPanel panel;
 
-    // EFFECTS: Constructs a frame with the summary table and initialize currentWeek to week.
-    public SummaryTable(AllAccounts accounts) {
+    // EFFECTS: Constructs a frame with the table of accounts and initialize accounts.
+    public AccountsTable(AllAccounts accounts) {
         table = new JTable();
         this.accounts = accounts;
         panel = new JPanel();
         panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
-                "Account Summary",
+                "Account List",
                 TitledBorder.CENTER,
                 TitledBorder.TOP));
         Object[] columns = {"Username", "Balance"};
         model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         table.setModel(model);
-        addPurchaseData();
+        addAccountData();
         JScrollPane pane = new JScrollPane(table);
         table.setPreferredScrollableViewportSize(new Dimension(300, 200));
         table.setFillsViewportHeight(true);
@@ -42,8 +42,8 @@ public class SummaryTable extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS : Adds purchase data to the table
-    private void addPurchaseData() {
+    // EFFECTS : Adds account data to the table
+    private void addAccountData() {
         for (Account a : accounts.getAccounts()) {
             Vector<String> result = new Vector<>();
             result.add(a.getUsername());

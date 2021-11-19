@@ -10,38 +10,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
+// Represents MainMenu frame in the GUI
 public class MainMenu extends Menu implements ActionListener {
     private JButton depositButton;
     private JButton withdrawButton;
     private JButton checkBalanceButton;
     private JButton logoutButton;
-    private JButton loadDataButton;
     private Account account;
     private AllAccounts accounts;
+    private JLabel accountNameLabel;
 
     // EFFECTS: Constructs a MainMenu and initialize accounts
     public MainMenu(Account account, AllAccounts accounts) {
         super();
         this.account = account;
         this.accounts = accounts;
-
-        withdrawButton.addActionListener(this);
-        withdrawButton.setBounds(50, 180, 220, 100);
-        withdrawButton.setFocusable(false);
-        withdrawButton.setFont(new Font("Withdraw", Font.BOLD, 20));
-
-        depositButton.addActionListener(this);
-        depositButton.setBounds(300, 180, 220, 100);
-        depositButton.setFocusable(false);
-        depositButton.setFont(new Font("Deposit", Font.BOLD, 20));
-
-        checkBalanceButton.addActionListener(this);
-        checkBalanceButton.setBounds(50, 320, 220, 100);
-        checkBalanceButton.setFocusable(false);
-        checkBalanceButton.setFont(new Font("Check Balance", Font.BOLD, 20));
-
     }
 
+    // EFFECTS: Assigns actions to all the buttons in current frame.
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == depositButton) {
@@ -60,28 +46,53 @@ public class MainMenu extends Menu implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize all the labels in current frame
+    public void initializeLabels() {
+        accountNameLabel = new JLabel("Welcome");
+        accountNameLabel.setBounds(220, 50, 320, 25);
+        accountNameLabel.setFont(new Font(accountNameLabel.getFont().getName(), Font.BOLD, 30));
+        accountNameLabel.setForeground(Color.DARK_GRAY);
+        this.add(accountNameLabel);
+    }
 
-    @Override
-    protected void initializeButtonsAndLabels() {
+    // MODIFIES: this
+    // EFFECTS: initialize all the buttons in current frame
+    private void initializeButtons() {
         withdrawButton = new JButton("Withdraw");
+        withdrawButton.addActionListener(this);
+        withdrawButton.setBounds(50, 130, 220, 100);
+        withdrawButton.setFocusable(false);
+        withdrawButton.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
         this.add(withdrawButton);
 
         depositButton = new JButton("Deposit");
+        depositButton.addActionListener(this);
+        depositButton.setBounds(300, 130, 220, 100);
+        depositButton.setFocusable(false);
+        depositButton.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
         this.add(depositButton);
 
         checkBalanceButton = new JButton("Check Balance");
+        checkBalanceButton.addActionListener(this);
+        checkBalanceButton.setBounds(180, 270, 220, 100);
+        checkBalanceButton.setFocusable(false);
+        checkBalanceButton.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
         this.add(checkBalanceButton);
+    }
 
-        loadDataButton = new JButton("Load");
-        this.add(loadDataButton);
-
+    // MODIFIES: this
+    // EFFECTS: initialize all the buttons and labels in current frame
+    @Override
+    protected void initializeButtonsAndLabels() {
+        initializeLabels();
+        initializeButtons();
         logoutButton = new JButton("Logout");
         logoutButton.addActionListener(this);
-        logoutButton.setBounds(300, 320, 220, 100);
+        logoutButton.setBounds(400, 420, 140, 50);
         logoutButton.setFocusable(false);
-        logoutButton.setFont(new Font("Check Balance", Font.BOLD, 20));
+        logoutButton.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
         this.add(logoutButton);
-
     }
 
     // EFFECTS: Save the weeks' data to file.

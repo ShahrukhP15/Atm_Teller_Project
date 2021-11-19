@@ -1,7 +1,12 @@
 {"accounts": [
      {
           "password": "123",
-          "balance": 100,
+          "balance": 150,
           "username": "abc"
+     },
+     {
+          "password": "pam",
+          "balance": 0,
+          "username": "jim"
      }
 ]}
