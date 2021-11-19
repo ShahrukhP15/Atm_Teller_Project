@@ -37,11 +37,13 @@ public class DepositMenu extends JFrame implements ActionListener {
             try {
                 Integer depositAmount = Integer.parseInt(enterAmountField.getText());
                 account.deposit(depositAmount);
-                JOptionPane.showMessageDialog(this, "Successfully Deposited " + depositAmount);
+                JOptionPane.showMessageDialog(this, "Successfully Deposited: " + depositAmount);
                 dispose();
             } catch (NumberFormatException exception) {
+                new ErrorClip();
                 JOptionPane.showMessageDialog(this, "Enter valid input.");
             } catch (InvalidAmountException invalidAmountException) {
+                new ErrorClip();
                 JOptionPane.showMessageDialog(this, "Enter valid input.");
             }
         }

@@ -42,6 +42,7 @@ public class LoginMenu extends Menu implements ActionListener {
                 new MainMenu(account,accounts);
                 dispose();
             } catch (NotFoundException ex) {
+                new ErrorClip();
                 JOptionPane.showMessageDialog(this, "Account not found.");
             }
         }

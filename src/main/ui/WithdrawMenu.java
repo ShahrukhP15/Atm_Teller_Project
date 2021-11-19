@@ -31,11 +31,13 @@ public class WithdrawMenu extends Menu implements ActionListener {
             try {
                 Integer withdrawAmount = Integer.parseInt(enterAmountField.getText());
                 account.withdraw(withdrawAmount);
-                JOptionPane.showMessageDialog(this, "Successfully Withdrawn " + withdrawAmount);
+                JOptionPane.showMessageDialog(this, "Successfully Withdrawn: " + withdrawAmount);
                 dispose();
             } catch (NumberFormatException | InvalidAmountException exception) {
+                new ErrorClip();
                 JOptionPane.showMessageDialog(this, "Enter valid input.");
             } catch (InsufficientBalanceException insufficientBalanceException) {
+                new ErrorClip();
                 JOptionPane.showMessageDialog(this, "Insufficient balance.");
             }
         }
