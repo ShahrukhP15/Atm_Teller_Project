@@ -50,6 +50,6 @@ public class Event {
 
     @Override
     public String toString() {
-        return   "\n" + description;
+        return   ("\n" + description);
     }
 }
