@@ -32,6 +32,8 @@ public class Account  implements Writable {
             throw new InvalidAmountException();
         }
         balance = balance + amount;
+        EventLog.getInstance().logEvent(new Event("Amount deposited in account with username " + this.getUsername() +
+                ": " + amount));
         return balance;
     }
 
@@ -48,6 +50,8 @@ public class Account  implements Writable {
             throw new InsufficientBalanceException();
         }
         balance = balance - amount;
+        EventLog.getInstance().logEvent(new Event("Amount withdrawn from account with username " + this.getUsername()
+                + ": " + amount));
         return balance;
     }
 

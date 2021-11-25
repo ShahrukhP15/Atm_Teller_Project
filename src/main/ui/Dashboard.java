@@ -5,6 +5,7 @@ import exceptions.InvalidAmountException;
 import exceptions.NotFoundException;
 import model.Account;
 import model.AllAccounts;
+import model.EventLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -73,7 +74,6 @@ public class Dashboard {
         boolean isLoggedIn = true;
         while (isLoggedIn) {
             String str = getUserInputString();
-           // Scanner inputP = new Scanner(System.in);
             switch (str) {
                 case "1":
                     withdrawal(account);

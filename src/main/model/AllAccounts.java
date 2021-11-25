@@ -27,6 +27,8 @@ public class AllAccounts  {
     public Account addAccount(String username, String password) {
         Account account = new Account(username,password);
         accounts.add(account);
+        EventLog.getInstance().logEvent(new Event("Account added with username " + account.getUsername() +
+        " to the list of accounts"));
         return account;
     }
 
@@ -34,7 +36,10 @@ public class AllAccounts  {
     public Account lookupAccount(String username, String password) throws NotFoundException {
         for (Account account : accounts) {
             if (account.getUsername().equals(username) && account.getPassword().equals(password)) {
+                EventLog.getInstance().logEvent(new Event("Logged into account with username " + username +
+                " from the list of accounts"));
                 return account;
+
             }
         }
         throw new NotFoundException();

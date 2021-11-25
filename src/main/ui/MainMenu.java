@@ -87,9 +87,9 @@ public class MainMenu extends Menu implements ActionListener {
     protected void initializeButtonsAndLabels() {
         initializeLabels();
         initializeButtons();
-        logoutButton = new JButton("Logout");
+        logoutButton = new JButton("Save and Logout");
         logoutButton.addActionListener(this);
-        logoutButton.setBounds(400, 420, 140, 50);
+        logoutButton.setBounds(300, 420, 230, 50);
         logoutButton.setFocusable(false);
         logoutButton.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
         this.add(logoutButton);
