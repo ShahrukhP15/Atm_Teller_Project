@@ -13,7 +13,7 @@ public class Main {
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
                 for (Event next : EventLog.getInstance()) {
-                    System.out.println(next.toString() + "\n" );
+                    System.out.println(next.toString() + "\n");
                 }
             }
         }));

@@ -61,7 +61,7 @@ public class Account  implements Writable {
     //EFFECTS: returns the current balance in cents;
     public int getBalance() {
         EventLog.getInstance().logEvent(new Event("Current balance of account with username "
-            + this.getUsername() + ": " + balance));
+                 + this.getUsername() + ": " + balance));
         return balance;
     }
 
