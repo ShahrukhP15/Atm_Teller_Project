@@ -18,6 +18,7 @@ public class CreateAccountMenu extends Menu implements ActionListener {
     private JTextField userNameField;
     private JTextField passwordField;
     private JButton backButton;
+    private JsonWriter jsonWriter;
 
     // EFFECTS: Constructs a CreateAccountMenu and initialize accounts
     public CreateAccountMenu(AllAccounts accounts) {
@@ -101,7 +102,7 @@ public class CreateAccountMenu extends Menu implements ActionListener {
     // EFFECTS: Save the accounts' data to file.
     private void saveAccountData() {
         try {
-            JsonWriter jsonWriter = DashboardGUI.JSON_WRITER;
+            jsonWriter = DashboardGUI.JSON_WRITER;
             jsonWriter.open();
             jsonWriter.write(accounts);
             jsonWriter.close();

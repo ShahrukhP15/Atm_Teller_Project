@@ -1,7 +1,7 @@
 package model;
 
 import exceptions.InsufficientBalanceException;
-import exceptions.InvalidAmountException;
+import exceptions.InvalidException;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -27,9 +27,10 @@ public class Account  implements Writable {
 
     //MODIFIES: this
     //EFFECTS: adds amount cents to balance on account
-    public int deposit(int amount) throws InvalidAmountException {
+    public int deposit(int amount) throws InvalidException {
         if (amount < 0) {
-            throw new InvalidAmountException();
+            EventLog.getInstance().logEvent(new Event("Invalid amount entered"));
+            throw new InvalidException();
         }
         balance = balance + amount;
         EventLog.getInstance().logEvent(new Event("Amount deposited in account with username "
@@ -42,11 +43,13 @@ public class Account  implements Writable {
     //    //            - subtracts amount cents from balance
     //    //            - returns true
     //    //               otherwise, returns false
-    public int withdraw(int amount) throws InvalidAmountException, InsufficientBalanceException {
+    public int withdraw(int amount) throws InvalidException, InsufficientBalanceException {
         if (amount < 0) {
-            throw new InvalidAmountException();
+            EventLog.getInstance().logEvent(new Event("Invalid amount entered"));
+            throw new InvalidException();
         }
         if (amount > balance) {
+            EventLog.getInstance().logEvent(new Event("Tried to withdraw more than balance in account"));
             throw new InsufficientBalanceException();
         }
         balance = balance - amount;
@@ -57,9 +60,10 @@ public class Account  implements Writable {
 
     //EFFECTS: returns the current balance in cents;
     public int getBalance() {
+        EventLog.getInstance().logEvent(new Event("Current balance of account with username "
+            + this.getUsername() + ": " + balance));
         return balance;
     }
-
 
 
     // EFFECTS: returns the current username
@@ -81,6 +85,7 @@ public class Account  implements Writable {
         json.put("username", username);
         json.put("password", password);
         json.put("balance", balance);
+        EventLog.getInstance().logEvent(new Event("Account information saved"));
         return json;
     }
 }

@@ -1,7 +1,7 @@
 package ui;
 
 import exceptions.InsufficientBalanceException;
-import exceptions.InvalidAmountException;
+import exceptions.InvalidException;
 import model.Account;
 
 import javax.swing.*;
@@ -33,7 +33,7 @@ public class WithdrawMenu extends Menu implements ActionListener {
                 account.withdraw(withdrawAmount);
                 JOptionPane.showMessageDialog(this, "Successfully Withdrawn: " + withdrawAmount);
                 dispose();
-            } catch (NumberFormatException | InvalidAmountException exception) {
+            } catch (NumberFormatException | InvalidException exception) {
                 new ErrorClip();
                 JOptionPane.showMessageDialog(this, "Enter valid input.");
             } catch (InsufficientBalanceException insufficientBalanceException) {

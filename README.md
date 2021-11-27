@@ -28,4 +28,62 @@ the bold and italic fonts correctly but they will appear correctly on GitHub.
 
 - As a user, I want to load the amount that is in my account after I had made a deposit to the account or I have withdrawn from an account.
 
-- 
+
+##***Phase 4: Task 2***
+
+Events logged:
+
+Fri Nov 26 15:34:44 PST 2021
+Account added with username abc to the list of accounts
+
+Fri Nov 26 15:34:44 PST 2021
+Account added with username jim to the list of accounts
+
+Fri Nov 26 15:34:44 PST 2021
+Account added with username sdf to the list of accounts
+
+Fri Nov 26 15:34:44 PST 2021
+Current balance of account with username abc: 80
+
+Fri Nov 26 15:34:44 PST 2021
+Current balance of account with username jim: 0
+
+Fri Nov 26 15:34:44 PST 2021
+Current balance of account with username sdf: 0
+
+Fri Nov 26 15:34:49 PST 2021
+Logged into account with username abc from the list of accounts
+
+Fri Nov 26 15:34:52 PST 2021
+Amount deposited in account with username abc: 20
+
+Fri Nov 26 15:34:53 PST 2021
+Current balance of account with username abc: 100
+
+Fri Nov 26 15:34:57 PST 2021
+Amount withdrawn from account with username abc: 50
+
+Fri Nov 26 15:34:58 PST 2021
+Current balance of account with username abc: 50
+
+Fri Nov 26 15:35:05 PST 2021
+Invalid amount entered
+
+Fri Nov 26 15:35:10 PST 2021
+Tried to withdraw more than balance in account
+
+Fri Nov 26 15:35:15 PST 2021
+Account information saved
+
+Fri Nov 26 15:35:15 PST 2021
+Account information saved
+
+Fri Nov 26 15:35:15 PST 2021
+Account information saved
+
+
+##***Phase 4: Task 3***
+
+There are associations and dependencies present. Also we can see singleton design pattern in the EventLog class.
+The different methods have been broken into classes for the observer to understand better.
+As for refactoring, I could have made a whole menu with the buttons for DepositMenu and WithdrawMenu and work with it.

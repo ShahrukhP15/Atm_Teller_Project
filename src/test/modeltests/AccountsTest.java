@@ -1,7 +1,7 @@
 package modeltests;
 
 import exceptions.InsufficientBalanceException;
-import exceptions.InvalidAmountException;
+import exceptions.InvalidException;
 import model.Account;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class AccountsTest {
     public void depositLegal() {
         try {
             account.deposit(120);
-        } catch (InvalidAmountException e) {
+        } catch (InvalidException e) {
             fail();
         }
         assertEquals(account.getBalance(), 120);
@@ -43,7 +43,7 @@ class AccountsTest {
         try {
             account.deposit(-120);
             fail();
-        } catch (InvalidAmountException e) {
+        } catch (InvalidException e) {
             // expected
         }
         assertEquals(account.getBalance(), 0);
@@ -54,7 +54,7 @@ class AccountsTest {
         account.setBalance(100);
         try {
             account.withdraw(99);
-        } catch (InvalidAmountException e) {
+        } catch (InvalidException e) {
             fail();
         } catch (InsufficientBalanceException e) {
             fail();
@@ -67,7 +67,7 @@ class AccountsTest {
         account.setBalance(100);
         try {
             account.withdraw(100);
-        } catch (InvalidAmountException e) {
+        } catch (InvalidException e) {
             fail();
         } catch (InsufficientBalanceException e) {
             fail();
@@ -80,7 +80,7 @@ class AccountsTest {
         try {
             account.withdraw(101);
             fail();
-        } catch (InvalidAmountException e) {
+        } catch (InvalidException e) {
             fail();
         } catch (InsufficientBalanceException e) {
             //expected
@@ -93,7 +93,7 @@ class AccountsTest {
         try {
             account.withdraw(-1);
             fail();
-        } catch (InvalidAmountException e) {
+        } catch (InvalidException e) {
             // expected
         } catch (InsufficientBalanceException e) {
             fail();
@@ -105,7 +105,7 @@ class AccountsTest {
         account.setBalance(100);
         try {
             account.withdraw(0);
-        } catch (InvalidAmountException e) {
+        } catch (InvalidException e) {
             fail();
         } catch (InsufficientBalanceException e) {
             fail();

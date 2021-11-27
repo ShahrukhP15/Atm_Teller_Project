@@ -9,6 +9,7 @@ import java.util.Date;
  */
 public class Event {
     private static final int HASH_CONSTANT = 13;
+    private Date dateLogged;
     private String description;
 
     /**
@@ -18,7 +19,17 @@ public class Event {
      * @param description a description of the event
      */
     public Event(String description) {
+        dateLogged = Calendar.getInstance().getTime();
         this.description = description;
+    }
+
+    /**
+     * Gets the date of this event (includes time).
+     *
+     * @return the date of the event
+     */
+    public Date getDate() {
+        return dateLogged;
     }
 
     /**
@@ -40,16 +51,17 @@ public class Event {
         }
         Event otherEvent = (Event) other;
 
-        return (this.description.equals(otherEvent.description));
+        return (this.dateLogged.equals(otherEvent.dateLogged)
+                && this.description.equals(otherEvent.description));
     }
 
     @Override
     public int hashCode() {
-        return  description.hashCode();
+        return (HASH_CONSTANT * dateLogged.hashCode() + description.hashCode());
     }
 
     @Override
     public String toString() {
-        return   ("\n" + description);
+        return dateLogged.toString() + "\n" + description;
     }
 }

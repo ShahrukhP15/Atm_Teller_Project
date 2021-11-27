@@ -19,6 +19,7 @@ public class MainMenu extends Menu implements ActionListener {
     private Account account;
     private AllAccounts accounts;
     private JLabel accountNameLabel;
+    private JButton saveButton;
 
     // EFFECTS: Constructs a MainMenu and initialize accounts
     public MainMenu(Account account, AllAccounts accounts) {
@@ -38,11 +39,12 @@ public class MainMenu extends Menu implements ActionListener {
             new WithdrawMenu(account);
         } else if (e.getSource() == logoutButton) {
             new LoginMenu(accounts);
-            saveAccountData();
             dispose();
         } else if (e.getSource() == checkBalanceButton) {
             int balance = account.getBalance();
             JOptionPane.showMessageDialog(this, "Your current balance: " + balance);
+        } else if (e.getSource() == saveButton) {
+            saveAccountData();
         }
     }
 
@@ -87,12 +89,21 @@ public class MainMenu extends Menu implements ActionListener {
     protected void initializeButtonsAndLabels() {
         initializeLabels();
         initializeButtons();
-        logoutButton = new JButton("Save and Logout");
+        logoutButton = new JButton("Logout");
         logoutButton.addActionListener(this);
-        logoutButton.setBounds(300, 420, 230, 50);
+        logoutButton.setBounds(380, 420, 150, 50);
         logoutButton.setFocusable(false);
         logoutButton.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
         this.add(logoutButton);
+
+        saveButton = new JButton("Save");
+        saveButton.addActionListener(this);
+        saveButton.setBounds(70, 420, 150, 50);
+        saveButton.setFocusable(false);
+        saveButton.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
+        this.add(saveButton);
+
+
     }
 
     // EFFECTS: Save the weeks' data to file.
@@ -102,6 +113,7 @@ public class MainMenu extends Menu implements ActionListener {
             jsonWriter.open();
             jsonWriter.write(accounts);
             jsonWriter.close();
+            System.out.println("Data saved");
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + DashboardGUI.JSON_STORE);
         }

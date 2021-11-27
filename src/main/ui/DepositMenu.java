@@ -1,6 +1,6 @@
 package ui;
 
-import exceptions.InvalidAmountException;
+import exceptions.InvalidException;
 import model.Account;
 
 import javax.swing.*;
@@ -42,7 +42,7 @@ public class DepositMenu extends JFrame implements ActionListener {
             } catch (NumberFormatException exception) {
                 new ErrorClip();
                 JOptionPane.showMessageDialog(this, "Enter valid input.");
-            } catch (InvalidAmountException invalidAmountException) {
+            } catch (InvalidException invalidException) {
                 new ErrorClip();
                 JOptionPane.showMessageDialog(this, "Enter valid input.");
             }

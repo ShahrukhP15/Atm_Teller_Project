@@ -1,11 +1,10 @@
 package ui;
 
 import exceptions.InsufficientBalanceException;
-import exceptions.InvalidAmountException;
+import exceptions.InvalidException;
 import exceptions.NotFoundException;
 import model.Account;
 import model.AllAccounts;
-import model.EventLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -142,7 +141,7 @@ public class Dashboard {
         try {
             account.deposit(amount);
             System.out.println("Successfully deposited " + amount);
-        } catch (InvalidAmountException e) {
+        } catch (InvalidException e) {
             System.out.println("Invalid amount");
         }
     }
@@ -153,7 +152,7 @@ public class Dashboard {
         try {
             account.withdraw(amount);
             System.out.println("Successfully withdrew " + amount);
-        } catch (InvalidAmountException e) {
+        } catch (InvalidException e) {
             System.out.println("Invalid amount");
         } catch (InsufficientBalanceException e) {
             System.out.println("Insufficient balance");

@@ -11,11 +11,12 @@ public class DashboardGUI {
     public static final JsonReader JSON_READER = new JsonReader("./data/data.json");
 
     private AllAccounts accounts;
+    private LoginMenu loginMenu;
 
     // EFFECTS: Constructs new Dashboard with a LoginMenu and initialize accounts.
     public DashboardGUI() {
         accounts = new AllAccounts();
-        new LoginMenu(accounts);
+        loginMenu = new LoginMenu(accounts);
     }
 
 }

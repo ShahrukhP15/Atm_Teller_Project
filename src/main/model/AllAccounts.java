@@ -3,12 +3,13 @@ package model;
 import exceptions.NotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 
 //Collection of Accounts
 
-public class AllAccounts  {
+public class AllAccounts implements Writable {
 
     private ArrayList<Account> accounts;
 
@@ -39,9 +40,9 @@ public class AllAccounts  {
                 EventLog.getInstance().logEvent(new Event("Logged into account with username " + username
                         + " from the list of accounts"));
                 return account;
-
             }
         }
+        EventLog.getInstance().logEvent(new Event("Wrong account input"));
         throw new NotFoundException();
     }
 

@@ -13,6 +13,7 @@ import java.io.IOException;
 // Represent a LoginMenu in the GUI
 public class LoginMenu extends Menu implements ActionListener {
     private AllAccounts accounts;
+    private ErrorClip errorClip;
     private JButton submitButton;
     private JButton signUpButton;
     private JLabel userNameLabel;
